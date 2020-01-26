@@ -1,0 +1,14 @@
+ <modelVersion>4.0.0</modelVersion>
+
+    <groupId>nl.belastingdienst</groupId>
+    <artifactId>demo1</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>demo1</name>
+    <description>parent for demo1</description>
+
+    <modules>
+        <module>frontend</module>
+        <module>backend</module>
+    </modules>

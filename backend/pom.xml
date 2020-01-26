@@ -69,16 +69,26 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-				<plugin>
-					<groupId>com.google.cloud.tools</groupId>
-					<artifactId>appengine-maven-plugin</artifactId>
-					<version>2.2.0</version>
-					<configuration>
-						<projectId>bd-demo1</projectId>
-						<version>1</version>
-						<cloudSdkHome>/Users/jan/Documents/Projects/google-cloud-sdk</cloudSdkHome>
-					</configuration>
-				</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/classes/static/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>../frontend/dist/frontend</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
