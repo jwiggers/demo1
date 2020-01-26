@@ -7,41 +7,13 @@ import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-messages',
-  template: `
-<div id="status">
-  <div id="indicator" class="{{connectionStatus$|async}}"></div>
-  <span id="status-label">{{connectionStatus$|async}}</span>
-  <button class="btn" (click)="rxStompService.activate()">Activate</button>
-  <button class="btn" (click)="rxStompService.deactivate()">DeActivate</button>
-  <button class="btn" (click)="rxStompService.stompClient.forceDisconnect()">Simulate Error</button>
-  <h2>Error message</h2>
-{{errorMessage}}
-</div>
-<div id="messages">
-    <button class="btn btn-primary" (click)="onSendMessage()">Send Test Message</button>
-    <h2>Received messages</h2>
-    <ol>
-        <!-- we will use Angular binding to populate list of messages -->
-        <li class="message" *ngFor="let message of receivedMessages">{{message}}</li>
-    </ol>
-</div>
-<div id="count">
-    <button class="btn btn-primary" (click)="onCount(true)">Up</button>
-    <button class="btn btn-primary" (click)="onCount(false)">Down</button>
-    <h2>Counter</h2>
-    <div>{{count}}</div>
-</div>
-  `,
-  styles: []
+  templateUrl: './message.component.html',
+  styles: [
+       '#indicator { display: inline-block; }',
+    ]
 })
 export class MessagesComponent implements OnInit {
 
-  constructor(public rxStompService: RxStompService) { 
-    this.connectionStatus$ = rxStompService.connectionState$.pipe(map((state) => {
-      // convert numeric RxStompState to string
-      return RxStompState[state];
-    }));
-  }
   public connectionStatus$: Observable<string>;
   public receivedMessages: string[] = [];
   public errorMessage: string;
@@ -49,6 +21,34 @@ export class MessagesComponent implements OnInit {
   private topicSubscription: Subscription;
   private errorSubscription: Subscription;
   private countSubscription: Subscription;
+  private dataSource: Object;
+  private chartConfig: Object;
+  private chartData: any;
+
+  constructor(public rxStompService: RxStompService) { 
+    this.connectionStatus$ = rxStompService.connectionState$.pipe(map((state) => {
+      // convert numeric RxStompState to string
+      return RxStompState[state];
+    }));
+    this.chartConfig = {
+      width: '500',
+      height: '200',
+      type: 'column2d',
+      dataFormat: 'json',
+  };
+
+    this.chartData = [{
+      "label": "Ja",
+      "value": "18"
+    }, {
+      "label": "Beetje",
+      "value": "7"
+    }, {
+      "label": "Nee",
+      "value": "5"
+    }];
+    this.dataSource = this.buildDataSource(this.chartData);
+  }
 
   ngOnInit() {
     this.topicSubscription = this.rxStompService.watch('/topic/demo').subscribe((message: Message) => {
@@ -60,6 +60,11 @@ export class MessagesComponent implements OnInit {
     this.countSubscription = this.rxStompService.watch('/topic/counter').subscribe((message: Message) => {
       this.count = message.body;
     });
+    this.countSubscription = this.rxStompService.watch('/topic/stemmen').subscribe((message: Message) => {
+      let data = JSON.parse(message.body);
+      this.dataSource = this.buildDataSource(data);
+    });
+
   }
 
   ngOnDestroy() {
@@ -75,5 +80,22 @@ export class MessagesComponent implements OnInit {
   onCount(isUp: boolean) {
     const message = {direction: isUp?'up':'down'};
     this.rxStompService.publish({destination: '/app/counter', body: JSON.stringify(message)});
+  }
+  onStemmen(col: any) {
+    console.log("onStemmen " + col);
+    this.rxStompService.publish({destination: '/app/stemmen', body: JSON.stringify(col)});
+  }
+  buildDataSource(data: []) {
+    return {
+      "chart": {
+        "caption": "Enquete",
+        "subCaption": "bla die bla",
+        "xAxisName": "Keuzes",
+        "yAxisName": "aantal",
+        // "numberSuffix": "K",
+        "theme": "fusion",
+      },
+      "data": data 
+    };
   }
 }

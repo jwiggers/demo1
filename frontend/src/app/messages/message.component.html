@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div id="status">
+                <div id="indicator" class="{{connectionStatus$|async}}"></div>
+                <div>Connection status: <span id="status-label">{{connectionStatus$|async}}</span></div>
+                <div>
+                    <button class="btn" (click)="rxStompService.activate()">Activate</button>
+                    <button class="btn" (click)="rxStompService.deactivate()">DeActivate</button>
+                    <button class="btn" (click)="rxStompService.stompClient.forceDisconnect()">Simulate Error</button>
+                    <h2>Error message</h2>
+                    {{errorMessage}}
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div id="enquete">
+                <h2>Enquete:</h2>
+            </div>
+            <div>
+                <fusioncharts [chartConfig]=chartConfig [dataSource]=dataSource ></fusioncharts>
+            </div>
+            <div class="stemmen">
+                <button class="btn btn-primary" (click)="onStemmen(0)">Ja</button>
+                <button class="btn btn-primary" (click)="onStemmen(1)">Beetje</button>
+                <button class="btn btn-primary" (click)="onStemmen(2)">Nee</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="messages">
+                <button class="btn btn-primary" (click)="onSendMessage()">Send Test Message</button>
+                <h2>Received messages</h2>
+                <ol>
+                    <!-- we will use Angular binding to populate list of messages -->
+                    <li class="message" *ngFor="let message of receivedMessages">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="count">
+                <button class="btn btn-primary" (click)="onCount(true)">Up</button>
+                <button class="btn btn-primary" (click)="onCount(false)">Down</button>
+                <h2>Counter</h2>
+                <div>{{count}}</div>
+            </div>
+        </div>
+    </div>
+</div>
