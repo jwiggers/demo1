@@ -1,0 +1,6 @@
+Create components
+Create login -> no username -> rest of the app disables
+Get username and roles
+Show Username and (growing) list of connected users
+Show some elements only if role is admin
+

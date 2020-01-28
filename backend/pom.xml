@@ -8,10 +8,10 @@
 		<version>2.2.3.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>nl.notarishoeve8</groupId>
-	<artifactId>demo1</artifactId>
+	<groupId>nl.belastingdienst</groupId>
+	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo1</name>
+	<name>backend</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

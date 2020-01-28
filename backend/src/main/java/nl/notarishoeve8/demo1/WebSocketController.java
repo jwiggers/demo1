@@ -15,11 +15,28 @@ import java.util.Map;
 
 @Controller
 @Log4j2
-public class WebSocketController {
+public class  WebSocketController {
 
-    private ColumnData[] chartdata = new ColumnData[]{
-            new ColumnData("Ja", 0),new ColumnData("Beetje", 0),new ColumnData("Nee", 0)
+    private ColumnData[][] columnData = new ColumnData[][] {
+            new ColumnData[] { new ColumnData("Ja", 18), new ColumnData("Beetje", 7), new ColumnData("Nee", 5) },
+            new ColumnData[] { new ColumnData("1", 0), new ColumnData("2", 3), new ColumnData("3", 8), new ColumnData("4", 12), new ColumnData("5", 3) },
+            new ColumnData[] { new ColumnData("1", 1), new ColumnData("2", 0), new ColumnData("3", 2), new ColumnData("4", 0), new ColumnData("5", 3),
+                    new ColumnData("6", 7), new ColumnData("7", 11), new ColumnData("8", 15), new ColumnData("9", 8), new ColumnData("10", 3)},
+            new ColumnData[] { new ColumnData("Ja", 15), new ColumnData("Nee", 7) }
     };
+
+    private ChartData[] chartData = new ChartData[] {
+            new ChartData("Enquete","Ja, Nee, Beetje", columnData[0]),
+            new ChartData("Enquete","1 ... 5", columnData[1]),
+            new ChartData("Enquete","1 ... 10", columnData[2]),
+            new ChartData("Enquete","Ja Nee", columnData[3])
+    };
+
+    private ColumnData[] currentColumnData;
+
+    public WebSocketController() {
+
+    }
 
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
@@ -44,8 +61,24 @@ public class WebSocketController {
     @SendTo("/topic/stemmen")
     public ColumnData[] processStemmen(@Payload String json) throws Exception {
         int column = new Gson().fromJson(json, int.class);
-        chartdata[column].value++;
-        return chartdata;
+        currentColumnData[column].value++;
+        return currentColumnData;
+    }
+
+    @MessageMapping("/chartConfig")
+    @SendTo("/topic/chartConfig")
+    public ChartData selectChart(@Payload String json) throws Exception {
+        int type = new Gson().fromJson(json, int.class);
+        currentColumnData = cloneColumnData(columnData[type]);
+        return chartData[type];
+    }
+
+    private ColumnData[] cloneColumnData(ColumnData[] columnDatum) {
+        ColumnData[] result = new ColumnData[columnDatum.length];
+        for(int x = 0; x < columnDatum.length; x++) {
+            result[x] = new ColumnData(columnDatum[x].label, 0);
+        }
+        return result;
     }
 
     @MessageExceptionHandler
@@ -65,6 +98,24 @@ public class WebSocketController {
     }
 }
 
+class ChartData {
+    public ChartCaption chart = new ChartCaption();
+    public ColumnData[] data =new ColumnData[] {new ColumnData("Ja", 18), new ColumnData("Beetje", 7), new ColumnData("Nee", 5), };
+
+    public ChartData(String title, String subTitle, ColumnData[] columnDatum) {
+        this.chart.caption = title;
+        this.chart.subCaption = subTitle;
+        this.data = columnDatum;
+    }
+}
+class ChartCaption {
+    public String caption = "Enquete";
+    public String subCaption = "bla die bla";
+    public String xAxisName = "Keuzes";
+    public String yAxisName = "aantal";
+    public String numberSuffix = "";
+    public String theme = "fusion";
+}
 class ColumnData {
     public String label;
     public int value = 0;

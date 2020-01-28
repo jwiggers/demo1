@@ -10,6 +10,8 @@ import { FusionChartsModule } from 'angular-fusioncharts';
 import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 
@@ -21,7 +23,10 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FusionChartsModule
+    BrowserAnimationsModule,
+    FusionChartsModule,
+    MatFormFieldModule,
+    MatInputModule 
   ],
   providers: [
     {
