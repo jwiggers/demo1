@@ -41,6 +41,44 @@ export class MessagesComponent implements OnInit {
     {name: '1 ... 10', index: 2},
     {name: 'Ja Nee', index: 3},
   ];
+  public speedSource = {
+    chart: {
+      caption: "Gewenste snelheid van de presentatie",
+      lowerLimit: "0",
+      upperLimit: "100",
+      showValue: "1",
+      numberSuffix: "%",
+      theme: "fusion",
+      showToolTip: "0"
+    },
+    // Gauge Data
+    colorRange: {
+      color: [
+        {
+          minValue: "0",
+          maxValue: "50",
+          code: "#F2726F"
+        },
+        {
+          minValue: "50",
+          maxValue: "75",
+          code: "#FFC533"
+        },
+        {
+          minValue: "75",
+          maxValue: "99999",
+          code: "#62B58F"
+        }
+      ]
+    },
+    dials: {
+      dial: [
+        {
+          value: "0"
+        }
+      ]
+    }
+  };
 
   constructor(public rxStompService: RxStompService) { 
     this.connectionStatus$ = rxStompService.connectionState$.pipe(map((state) => {
@@ -65,6 +103,7 @@ export class MessagesComponent implements OnInit {
         "value": "5"
     }];
     this.dataSource = this.buildDataSource(this.chartData);
+    
   }
 
   ngOnInit() {
@@ -77,6 +116,7 @@ export class MessagesComponent implements OnInit {
     this.countSubscription = this.rxStompService.watch('/topic/counter').subscribe((message: Message) => {
       console.log("counter: " + message.body);
       this.count = message.body;
+      this.speedSource.dials.dial[0].value = message.body;
     });
     this.stemmenSubscription = this.rxStompService.watch('/topic/stemmen').subscribe((message: Message) => {
       console.log("stemmen: " + message.body);
@@ -95,6 +135,7 @@ export class MessagesComponent implements OnInit {
     this.topicSubscription.unsubscribe();
     this.errorSubscription.unsubscribe();
     this.countSubscription.unsubscribe();
+    this.stemmenConfigSubscription.unsubscribe();
   }
   
   onSendMessage() {

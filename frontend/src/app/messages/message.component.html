@@ -54,7 +54,13 @@
                 <button class="btn btn-primary" (click)="onCount(true)">Up</button>
                 <button class="btn btn-primary" (click)="onCount(false)">Down</button>
                 <h2>Counter</h2>
-                <div>{{count}}</div>
+                <fusioncharts
+  width="450"
+  height="250"
+  type="AngularGauge"
+  [dataSource]="speedSource"
+>
+</fusioncharts>
             </div>
         </div>
     </div>

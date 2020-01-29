@@ -9,11 +9,12 @@ import { RxStompConfig } from './rx-stomp.config';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as Widgets from 'fusioncharts/fusioncharts.widgets';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
+FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
 @NgModule({
   declarations: [
