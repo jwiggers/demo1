@@ -44,30 +44,42 @@ export class MessagesComponent implements OnInit {
   public speedSource = {
     chart: {
       caption: "Gewenste snelheid van de presentatie",
-      lowerLimit: "0",
+      lowerLimit: "-100",
       upperLimit: "100",
-      showValue: "1",
-      numberSuffix: "%",
+      showValue: "0",
+      numberSuffix: "",
       theme: "fusion",
-      showToolTip: "0"
+      showToolTip: "0",
+      gaugeStartAngle: 140,
+      gaugeEndAngle: 40
     },
     // Gauge Data
     colorRange: {
       color: [
         {
-          minValue: "0",
+          minValue: "-100",
+          maxValue: "-50",
+          code: "#F2726F" // rood
+        },
+        {
+          minValue: "-50",
+          maxValue: "-20",
+          code: "#FFC533" // oranje
+        },
+        {
+          minValue: "-20",
+          maxValue: "+20",
+          code: "#62B58F" // groen
+        },
+        {
+          minValue: "20",
           maxValue: "50",
-          code: "#F2726F"
+          code: "#FFC533" // oranje
         },
         {
           minValue: "50",
-          maxValue: "75",
-          code: "#FFC533"
-        },
-        {
-          minValue: "75",
-          maxValue: "99999",
-          code: "#62B58F"
+          maxValue: "100",
+          code: "#F2726F" // rood
         }
       ]
     },
