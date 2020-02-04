@@ -47,6 +47,14 @@
                 </ol>
             </div>
         </div>
+        <div class="col">
+            <div id="news">
+                <h2>News messages</h2>
+                <ol>
+                    <li class="news" *ngFor="let newsMessage of this.newsData">{{newsMessage}}</li>
+                </ol>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col">

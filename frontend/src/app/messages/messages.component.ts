@@ -33,6 +33,7 @@ export class MessagesComponent implements OnInit {
   public dataSource: any;
   public chartConfig: any;
   private chartData: any;
+  public newsData: string[] = [];
 
   chartTypeControl = new FormControl('', [Validators.required]);
   chartTypes: ChartType[] = [
@@ -115,7 +116,6 @@ export class MessagesComponent implements OnInit {
         "value": "5"
     }];
     this.dataSource = this.buildDataSource(this.chartData);
-    
   }
 
   ngOnInit() {
@@ -140,7 +140,13 @@ export class MessagesComponent implements OnInit {
       let config = JSON.parse(message.body);
       this.dataSource = config;
     });
+    this.stemmenConfigSubscription = this.rxStompService.watch('/topic/news').subscribe((message: Message) => {
+      console.log("news: " + message.body);
+      let news = JSON.parse(message.body);
+      let temp = [ ...news.data, ...this.newsData ];
+      this.newsData = temp.slice(0,20);
 
+    });
   }
 
   ngOnDestroy() {

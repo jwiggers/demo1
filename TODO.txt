@@ -4,3 +4,23 @@ Get username and roles
 Show Username and (growing) list of connected users
 Show some elements only if role is admin
 
+http://feeds.feedburner.com/tweakers/nieuws
+http://feeds.feedburner.com/tweakers/mixed
+http://feeds.feedburner.com/tweakers/meuktracker
+
+https://www.nu.nl/rss/Algemeen
+https://www.nu.nl/rss/Wetenschap
+
+https://advisories.ncsc.nl/rss/advisories
+
+https://www.cybersecurityalliantie.nl/rss
+
+http://www.krantenkoppen.eu/feed/
+
+JavaWorld RSS Feed - https://feeds.feedspot.com/?followfeedid=3609361
+Java Code Geeks RSS Feed - https://feeds.feedspot.com/?followfeedid=4430903
+Plumbr Java Performance Monitoring RSS Feed - https://feeds.feedspot.com/?followfeedid=4430904
+A Java geek RSS Feed - https://feeds.feedspot.com/?followfeedid=4528220
+
+
+
