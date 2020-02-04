@@ -18,7 +18,7 @@ import java.util.List;
 @Log4j2
 public class FeedController {
 
-    private static final boolean SAVE_DATA_TO_FILE = true;
+    private static final boolean SAVE_DATA_TO_FILE = false;
 
     private final String feedId;
     private final String feedUrl;
