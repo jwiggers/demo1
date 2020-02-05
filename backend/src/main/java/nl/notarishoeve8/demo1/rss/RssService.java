@@ -23,20 +23,21 @@ public class RssService {
 
 //        new FeedController("ncsc advisories", "https://advisories.ncsc.nl/rss/advisories"),
 
-        new FeedController("cybersecurityalliantie", "https://www.cybersecurityalliantie.nl/rss"),
+//        new FeedController("cybersecurityalliantie", "https://www.cybersecurityalliantie.nl/rss"),
 
         new FeedController("Krantenkoppen", "http://www.krantenkoppen.eu/feed/"),
 
-        new FeedController("JavaWorld", "https://feeds.feedspot.com/?followfeedid=3609361"),
-        new FeedController("Java Code Geeks", "https://feeds.feedspot.com/?followfeedid=4430903"),
-        new FeedController("Plumbr Java Performance Monitoring", "https://feeds.feedspot.com/?followfeedid=4430904"),
-        new FeedController("Java geek", "https://feeds.feedspot.com/?followfeedid=4528220")
+        new FeedController("JavaWorld", "https://www.javaworld.com/index.rss"),
+        new FeedController("Java Code Geeks", "https://www.javacodegeeks.com/feed"),
+        new FeedController("Plumbr Java Performance Monitoring", "https://plumbr.io/blog/feed"),
+        new FeedController("Java geek", "https://blog.frankel.ch/feed.xml")
     };
     private static int feedCounter = 0;
 
     public Feeddata getFeeddata() {
         Feeddata result = null;
         FeedController rssFeed = rssFeeds[feedCounter];
+        log.info("Processing rss feed {}", rssFeed.getName());
         try {
             result = rssClient.getRssFeed(rssFeed);
         } catch (IOException e) {

@@ -6,6 +6,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -62,18 +63,18 @@ public class FeedController {
     public Feeddata processData(InputStream content) {
         if (SAVE_DATA_TO_FILE) {
             String feedData = getDataFromInputStream(content);
-            content = saveFeeddata(feedData);
+            content = saveFeeddata(getName(), feedData);
         }
-        List<String> data = process(content);
+        List<String> data = process(getName(), content);
         if (data == null || data.isEmpty()) return null;
         return filterFeedData(data);
     }
 
-    private InputStream saveFeeddata(String data) {
+    private InputStream saveFeeddata(String id, String data) {
         List<String> result = new LinkedList<>();
         FileOutputStream out = null;
         try {
-            String filename = "rssFeed_" + fileCnt++;
+            String filename = "rssFeed_" + id + "_" + fileCnt++;
             out = new FileOutputStream(filename);
             out.write(data.getBytes());
             out.flush();
@@ -105,7 +106,7 @@ public class FeedController {
         return textBuilder.toString();
     }
 
-    private static List<String> process(InputStream dataStream) {
+    private static List<String> process(String id, InputStream dataStream) {
         List<String> result = new LinkedList<>();
         try {
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(dataStream);
@@ -116,11 +117,14 @@ public class FeedController {
                 result.add(titles.item(0).getTextContent());
             }
         } catch (SAXException e) {
-            e.printStackTrace();
+            log.error("SAXException parsing feed from {}", id);
+//            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("IO Exception feed from {}", id);
+//            e.printStackTrace();
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+            log.error("Probleem parsing feed from {}", id);
+//            e.printStackTrace();
         }
         return result;
     }
