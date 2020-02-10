@@ -15,6 +15,7 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StemmenComponent } from './stemmen/stemmen.component';
 import { NewsComponent } from './news/news.component';
+import { FormsModule } from '@angular/forms';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
@@ -31,7 +32,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
     BrowserAnimationsModule,
     FusionChartsModule,
     MatFormFieldModule,
-    MatInputModule 
+    MatInputModule, 
+    FormsModule
   ],
   providers: [
     {

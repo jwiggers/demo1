@@ -1,6 +1,17 @@
 <div class="container">
     <div class="row">
         <div class="col">
+            <h3>User: {{username}}</h3>
+            <div *ngIf='! loggedIn'>
+                <label for="name">Username: </label>
+                <input type="text" id="name" required [(ngModel)]="username" #name="ngModel">
+                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Kies een valide gebruikersnaam.</div>
+                <div><button type="button" class="btn btn-success" (click)="logIn()">Log in!</button></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             <div id="status">
                 <div id="indicator" class="{{connectionStatus$|async}}"></div>
                 <div>Connection status: <span id="status-label">{{connectionStatus$|async}}</span></div>
@@ -48,7 +59,12 @@
             </div>
         </div>
         <div class="col">
-            <!-- room for another component-->
+            <div id="news">
+                <h2>Logged in users:</h2>
+                <ul>
+                    <li class="users" *ngFor="let userId of this.loggedInUsers">{{userId}}</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

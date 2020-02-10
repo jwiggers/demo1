@@ -23,6 +23,11 @@ export class MessagesComponent implements OnInit {
   private topicSubscription: Subscription;
   private errorSubscription: Subscription;
   private countSubscription: Subscription;
+  private loginSubscription: Subscription;
+
+  private username: string;
+  private loggedIn = false;
+  private loggedInUsers: string[] = [];
 
   chartTypeControl = new FormControl('', [Validators.required]);
   public speedSource = {
@@ -95,12 +100,17 @@ export class MessagesComponent implements OnInit {
       this.count = message.body;
       this.speedSource.dials.dial[0].value = message.body;
     });
+    this.loginSubscription = this.rxStompService.watch('/topic/users').subscribe((message: Message) => {
+      this.loggedInUsers = JSON.parse(message.body);
+    });
   }
 
   ngOnDestroy() {
     this.topicSubscription.unsubscribe();
     this.errorSubscription.unsubscribe();
     this.countSubscription.unsubscribe();
+    this.loginSubscription.unsubscribe();
+    this.rxStompService.publish({destination: '/app/userLoggedOff', body: JSON.stringify(this.username)});
   }
   
   onSendMessage() {
@@ -110,5 +120,10 @@ export class MessagesComponent implements OnInit {
   onCount(isUp: boolean) {
     const message = {direction: isUp?'up':'down'};
     this.rxStompService.publish({destination: '/app/counter', body: JSON.stringify(message)});
+  }
+
+  logIn() {
+    this.rxStompService.publish({destination: '/app/user', body: JSON.stringify(this.username)});
+    this.loggedIn = true; 
   }
 }

@@ -14,6 +14,9 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -35,6 +38,7 @@ public class  WebSocketController {
             new ChartData("Enquete","Ja Nee", columnData[3])
     };
 
+    private List<String> users = new ArrayList<>();
     private ColumnData[] currentColumnData;
 
     public WebSocketController() {
@@ -77,6 +81,22 @@ public class  WebSocketController {
         int type = new Gson().fromJson(json, int.class);
         currentColumnData = cloneColumnData(columnData[type]);
         return chartData[type];
+    }
+
+    @MessageMapping("/user")
+    @SendTo("/topic/users")
+    public List<String> userLoggedOn(@Payload String user) throws Exception {
+        users.add(user);
+        Collections.sort(users);
+        return users;
+    }
+
+    @MessageMapping("/userLoggedOff")
+    @SendTo("/topic/users")
+    public List<String> userLoggedOff(@Payload String user) throws Exception {
+        users.remove(user);
+        Collections.sort(users);
+        return users;
     }
 
     private ColumnData[] cloneColumnData(ColumnData[] columnDatum) {
