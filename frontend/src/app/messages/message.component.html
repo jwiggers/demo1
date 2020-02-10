@@ -23,8 +23,8 @@
             <div class="stemmenConfig">
                 <label>Chart type</label>
                 <mat-form-field>
-                    <select matNativeControl required #t (change)="onStemmenConfig(t.value)">
-                        <option>select chart type</option>
+                    <select matNativeControl required #t (change)="onStemmenConfig(t.value)" >
+                        <option value="-1" disabled="true" [selected]="true">select chart type</option>
                         <option *ngFor="let chartType of chartTypes" [value]="chartType.index">{{chartType.name}}</option>
                     </select>
                 </mat-form-field>
