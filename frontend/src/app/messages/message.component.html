@@ -14,26 +14,7 @@
             </div>
         </div>
         <div class="col">
-            <div id="enquete">
-                <h2>Enquete:</h2>
-            </div>
-            <div>
-                <fusioncharts [chartConfig]=chartConfig [dataSource]=dataSource ></fusioncharts>
-            </div>
-            <div class="stemmenConfig">
-                <label>Chart type</label>
-                <mat-form-field>
-                    <select matNativeControl required #t (change)="onStemmenConfig(t.value)" >
-                        <option value="-1" disabled="true" [selected]="true">select chart type</option>
-                        <option *ngFor="let chartType of chartTypes" [value]="chartType.index">{{chartType.name}}</option>
-                    </select>
-                </mat-form-field>
-            </div>
-            <div class="stemmenButtons">
-                <button class="btn btn-primary" *ngFor="let columnData of dataSource.data; let i = index" (click)="onStemmen(i)">{{columnData.label}}</button>
-                <!-- <button class="btn btn-primary" (click)="onStemmen(1)">Beetje</button>
-                <button class="btn btn-primary" (click)="onStemmen(2)">Nee</button> -->
-            </div>
+            <app-stemmen></app-stemmen>
         </div>
     </div>
     <div class="row">
@@ -48,12 +29,7 @@
             </div>
         </div>
         <div class="col">
-            <div id="news">
-                <h2>News messages</h2>
-                <ol>
-                    <li class="news" *ngFor="let newsMessage of this.newsData">{{newsMessage}}</li>
-                </ol>
-            </div>
+            <app-news></app-news>
         </div>
     </div>
     <div class="row">
@@ -63,13 +39,16 @@
                 <button class="btn btn-primary" (click)="onCount(false)">Down</button>
                 <h2>Counter</h2>
                 <fusioncharts
-  width="450"
-  height="250"
-  type="AngularGauge"
-  [dataSource]="speedSource"
->
-</fusioncharts>
+                    width="450"
+                    height="250"
+                    type="AngularGauge"
+                    [dataSource]="speedSource"
+                    >
+                </fusioncharts>
             </div>
+        </div>
+        <div class="col">
+            <!-- room for another component-->
         </div>
     </div>
 </div>

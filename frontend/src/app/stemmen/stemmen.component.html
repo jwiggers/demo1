@@ -1,0 +1,22 @@
+<div>
+    <div id="enquete">
+        <h2>Enquete:</h2>
+    </div>
+    <div>
+        <fusioncharts [chartConfig]=chartConfig [dataSource]=dataSource ></fusioncharts>
+    </div>
+    <div class="stemmenConfig">
+        <label>Chart type</label>
+        <mat-form-field>
+            <select matNativeControl required #t (change)="onStemmenConfig(t.value)" >
+                <option value="-1" disabled="true" [selected]="true">select chart type</option>
+                <option *ngFor="let chartType of chartTypes" [value]="chartType.index">{{chartType.name}}</option>
+            </select>
+        </mat-form-field>
+    </div>
+    <div class="stemmenButtons">
+        <button class="btn btn-primary" *ngFor="let columnData of dataSource.data; let i = index" (click)="onStemmen(i)">{{columnData.label}}</button>
+        <!-- <button class="btn btn-primary" (click)="onStemmen(1)">Beetje</button>
+        <button class="btn btn-primary" (click)="onStemmen(2)">Nee</button> -->
+    </div>    
+</div>

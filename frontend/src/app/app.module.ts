@@ -13,13 +13,17 @@ import * as Widgets from 'fusioncharts/fusioncharts.widgets';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StemmenComponent } from './stemmen/stemmen.component';
+import { NewsComponent } from './news/news.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
 @NgModule({
   declarations: [
     AppComponent,
-    MessagesComponent
+    MessagesComponent,
+    StemmenComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
