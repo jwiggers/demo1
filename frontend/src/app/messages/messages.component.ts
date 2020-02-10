@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { Message } from '@stomp/stompjs';
 import { Subscription, Observable } from 'rxjs';
@@ -14,7 +14,12 @@ import {FormControl, Validators} from '@angular/forms';
        '.stemmenConfig label { margin-right: 50px; }'
     ]
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, OnDestroy {
+
+  @HostListener('window:beforeunload', [ '$event' ])
+    beforeUnloadHandler(event) {
+      this.ngOnDestroy();
+  }
 
   public connectionStatus$: Observable<string>;
   public receivedMessages: string[] = [];
@@ -106,11 +111,11 @@ export class MessagesComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this.rxStompService.publish({destination: '/app/userLoggedOff', body: JSON.stringify(this.username)});
     this.topicSubscription.unsubscribe();
     this.errorSubscription.unsubscribe();
     this.countSubscription.unsubscribe();
     this.loginSubscription.unsubscribe();
-    this.rxStompService.publish({destination: '/app/userLoggedOff', body: JSON.stringify(this.username)});
   }
   
   onSendMessage() {
