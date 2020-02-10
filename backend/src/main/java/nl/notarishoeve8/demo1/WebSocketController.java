@@ -3,6 +3,7 @@ package nl.notarishoeve8.demo1;
 import com.google.gson.Gson;
 import lombok.extern.log4j.Log4j2;
 import nl.notarishoeve8.demo1.rss.Feeddata;
+import nl.notarishoeve8.demo1.rss.RssFeedProcessingException;
 import nl.notarishoeve8.demo1.rss.RssService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
@@ -13,7 +14,6 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -103,11 +103,17 @@ public class  WebSocketController {
         }
     }
 
-    @Scheduled(initialDelay = 5000, fixedRate = 5000)
+    @Scheduled(initialDelay = 10000, fixedRate = 60000)
     private void readRssFeed() {
-        Feeddata feedData = rssService.getFeeddata();
-        if (feedData != null) {
-            messagingTemplate.convertAndSend("/topic/news", feedData);
+        Feeddata feedData = null;
+        try {
+            feedData = rssService.getFeeddata();
+            if (feedData != null) {
+                messagingTemplate.convertAndSend("/topic/news", feedData);
+            }
+        } catch (RssFeedProcessingException e) {
+            log.error("Problem processing rss feed.", e);
+            handleException(e);
         }
     }
 }

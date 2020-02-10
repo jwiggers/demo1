@@ -22,9 +22,9 @@ public class RssService {
         new FeedController("nu.nl Wetenschap", "https://www.nu.nl/rss/Wetenschap"),
 
 //        new FeedController("ncsc advisories", "https://advisories.ncsc.nl/rss/advisories"),
-
 //        new FeedController("cybersecurityalliantie", "https://www.cybersecurityalliantie.nl/rss"),
 
+        new FeedController("security.nl", "https://www.security.nl/rss/headlines.xml"),
         new FeedController("Krantenkoppen", "http://www.krantenkoppen.eu/feed/"),
 
         new FeedController("JavaWorld", "https://www.javaworld.com/index.rss"),
@@ -38,11 +38,7 @@ public class RssService {
         Feeddata result = null;
         FeedController rssFeed = rssFeeds[feedCounter];
         log.info("Processing rss feed {}", rssFeed.getName());
-        try {
-            result = rssClient.getRssFeed(rssFeed);
-        } catch (IOException e) {
-            log.error(String.format("Problem processing rss feed '%s'.", rssFeeds[feedCounter].getName()), e);
-        }
+        result = rssClient.getRssFeed(rssFeed);
         if (++feedCounter >= rssFeeds.length) feedCounter = 0;
         return result;
     }

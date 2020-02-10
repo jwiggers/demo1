@@ -1,12 +1,10 @@
 package nl.notarishoeve8.demo1.rss;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 public class Feeddata {
     private String id;
     private List<String> data;
