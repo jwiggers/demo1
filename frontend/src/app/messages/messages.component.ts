@@ -30,9 +30,9 @@ export class MessagesComponent implements OnInit, OnDestroy {
   private countSubscription: Subscription;
   private loginSubscription: Subscription;
 
-  private username: string;
-  private loggedIn = false;
-  private loggedInUsers: string[] = [];
+  public username: string;
+  public loggedIn = false;
+  public loggedInUsers: string[] = [];
 
   chartTypeControl = new FormControl('', [Validators.required]);
   public speedSource = {
