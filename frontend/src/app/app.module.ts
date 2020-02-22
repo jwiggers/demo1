@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StemmenComponent } from './stemmen/stemmen.component';
 import { NewsComponent } from './news/news.component';
 import { FormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
@@ -24,7 +25,8 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
     AppComponent,
     MessagesComponent,
     StemmenComponent,
-    NewsComponent
+    NewsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

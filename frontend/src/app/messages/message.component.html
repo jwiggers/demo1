@@ -1,13 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h3>User: {{username}}</h3>
-            <div *ngIf='! loggedIn'>
-                <label for="name">Username: </label>
-                <input type="text" id="name" required [(ngModel)]="username" #name="ngModel">
-                <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Kies een valide gebruikersnaam.</div>
-                <div><button type="button" class="btn btn-success" (click)="logIn()">Log in!</button></div>
-            </div>
+            <app-user></app-user>
         </div>
     </div>
     <div class="row">

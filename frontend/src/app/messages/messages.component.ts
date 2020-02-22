@@ -5,6 +5,7 @@ import { Subscription, Observable } from 'rxjs';
 import {RxStompState} from '@stomp/rx-stomp';
 import {map} from 'rxjs/operators';
 import {FormControl, Validators} from '@angular/forms';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-messages',
@@ -30,9 +31,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   private countSubscription: Subscription;
   private loginSubscription: Subscription;
 
-  public username: string;
-  public loggedIn = false;
-  public loggedInUsers: string[] = [];
+  private loggedInUsers: string[] = [];
 
   chartTypeControl = new FormControl('', [Validators.required]);
   public speedSource = {
@@ -86,7 +85,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
     }
   };
 
-  constructor(public rxStompService: RxStompService) { 
+  constructor(public rxStompService: RxStompService, private userService: UserService) { 
     this.connectionStatus$ = rxStompService.connectionState$.pipe(map((state) => {
       // convert numeric RxStompState to string
       return RxStompState[state];
@@ -111,7 +110,7 @@ export class MessagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.rxStompService.publish({destination: '/app/userLoggedOff', body: JSON.stringify(this.username)});
+    this.rxStompService.publish({destination: '/app/userLoggedOff', body: JSON.stringify(this.userService.getName())});
     this.topicSubscription.unsubscribe();
     this.errorSubscription.unsubscribe();
     this.countSubscription.unsubscribe();
@@ -127,8 +126,4 @@ export class MessagesComponent implements OnInit, OnDestroy {
     this.rxStompService.publish({destination: '/app/counter', body: JSON.stringify(message)});
   }
 
-  logIn() {
-    this.rxStompService.publish({destination: '/app/user', body: JSON.stringify(this.username)});
-    this.loggedIn = true; 
-  }
 }

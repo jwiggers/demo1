@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RxStompService } from '@stomp/ng2-stompjs';
 import { Message } from '@stomp/stompjs';
 import { Subscription, Observable } from 'rxjs';
+import { UserService } from '../service/user.service';
 
 export interface ChartType {
   index: number;
@@ -30,7 +31,7 @@ export class StemmenComponent implements OnInit {
   ];
 
 
-  constructor(public rxStompService: RxStompService) {
+  constructor(public rxStompService: RxStompService, private userService: UserService) {
     this.chartConfig = {
       width: '90%',
       height: '100%',

@@ -5,10 +5,10 @@
     <div>
         <fusioncharts [chartConfig]=chartConfig [dataSource]=dataSource ></fusioncharts>
     </div>
-    <div class="stemmenConfig">
+    <div class="stemmenConfig" >
         <label>Chart type</label>
         <mat-form-field>
-            <select matNativeControl required #t (change)="onStemmenConfig(t.value)" >
+            <select matNativeControl required #t (change)="onStemmenConfig(t.value)" [disabled]="!userService.isAdmin()">
                 <option value="-1" disabled="true" [selected]="true">select chart type</option>
                 <option *ngFor="let chartType of chartTypes" [value]="chartType.index">{{chartType.name}}</option>
             </select>

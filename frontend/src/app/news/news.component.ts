@@ -5,7 +5,15 @@ import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-news',
-  templateUrl: './news.component.html',
+  template: `
+  <div>
+    <div id="news">
+        <h2>News messages</h2>
+        <ul>
+            <li class="news" *ngFor="let newsMessage of this.newsData">{{newsMessage}}</li>
+        </ul>
+    </div>
+  </div>`,
   styles: []
 })
 export class NewsComponent implements OnInit {
