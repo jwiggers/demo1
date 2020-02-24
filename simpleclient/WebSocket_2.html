@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<HTML>
+  <header>
+    <meta charset="utf-8" />
+    <title>WebSocket Test</title>
+    <!-- http://jmesnil.net/stomp-websocket/doc/ -->
+    <script src="stomp.min.js"></script>
+    <script language="javascript" type="text/javascript">
+
+      var wsUri = "ws://bdnlwebdev-bdnlwebdev.apps.ca-central-1.starter.openshift-online.com/greeting";
+      var output;
+      var topicId;
+      var connect;
+      var disconnect;
+      var client;
+
+      function init()
+      {
+        output = document.getElementById("output");
+        connect = document.getElementById("connect");
+        disconnect = document.getElementById("disconnect");
+        connect.disabled = false;
+        disconnect.disabled = true;
+      }
+      function initConnection()
+      {
+        writeToScreen("Connecting to server");
+        client = new Stomp.client(wsUri);
+
+        const news_callback = function(message) {
+            writeToScreen(message.body);
+        };
+        const connect_callback = function() {
+          writeToScreen("Connected. Subscribing to news");
+          connect.disabled = true;
+          disconnect.disabled = false;
+          topicId = client.subscribe("/topic/news", news_callback)
+          writeToScreen("Subscribed");
+        };
+        client.connect("guest", "guest", connect_callback);
+      }
+      function resetConnection()
+      {
+        writeToScreen("Disconecting from server");
+        const disconnect_callback = function() {
+          writeToScreen("Disconnected");
+          connect.disabled = false;
+          disconnect.disabled = true;
+        };
+        client.disconnect(disconnect_callback);
+      }
+      function writeToScreen(message)
+      {
+        var pre = document.createElement("p");
+        pre.style.wordWrap = "break-word";
+        pre.innerHTML = message;
+        output.appendChild(pre);
+      }
+
+      window.addEventListener("load", init, false);
+    </script>
+  </header>
+  <body>
+    <h2>WebSocket Test</h2>
+    <button id="connect" type="button" onclick="initConnection()">Connect</button>
+    <button id="disconnect" type="button" onclick="resetConnection()">Disconnect</button>
+
+    <div id="output"></div>
+  </body>
+</HTML>
