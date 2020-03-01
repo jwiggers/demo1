@@ -55,30 +55,27 @@ public class  WebSocketController {
     private RssService rssService;
 
     @MessageMapping("/message")
-    @SendTo("/topic/demo")
+    @SendTo("/topic/message")
     public String processMessageFromClient(@Payload String message) throws Exception {
-        return new Gson().fromJson(message, Map.class).get("text").toString();
+        return message;
     }
 
     @MessageMapping("/counter")
     @SendTo("/topic/counter")
-    public Integer processCounterFromClient(@Payload String json) throws Exception {
-        String direction = new Gson().fromJson(json, Map.class).get("direction").toString();
+    public Integer processCounterFromClient(@Payload String direction) throws Exception {
         return direction.equalsIgnoreCase("up") ? counter.up() : counter.down();
     }
 
     @MessageMapping("/stemmen")
     @SendTo("/topic/stemmen")
-    public ColumnData[] processStemmen(@Payload String json) throws Exception {
-        int column = new Gson().fromJson(json, int.class);
+    public ColumnData[] processStemmen(@Payload Integer column) throws Exception {
         currentColumnData[column].value++;
         return currentColumnData;
     }
 
     @MessageMapping("/chartConfig")
     @SendTo("/topic/chartConfig")
-    public ChartData selectChart(@Payload String json) throws Exception {
-        int type = new Gson().fromJson(json, int.class);
+    public ChartData selectChart(@Payload Integer type) throws Exception {
         currentColumnData = cloneColumnData(columnData[type]);
         return chartData[type];
     }
@@ -89,6 +86,13 @@ public class  WebSocketController {
         users.add(user);
         Collections.sort(users);
         return users;
+    }
+
+    @MessageMapping("/tabs")
+    @SendTo("/topic/tabs")
+    public Tabs echoTabs(@Payload Tabs tabs) throws Exception {
+        log.info(tabs.nieuws);
+        return tabs;
     }
 
     @MessageMapping("/userLoggedOff")
@@ -167,4 +171,12 @@ class ColumnData {
         this.label = label;
         this.value = v;
     }
+}
+
+class Tabs {
+    public boolean user;
+    public boolean message; 
+    public boolean stemmen; 
+    public boolean nieuws; 
+    public boolean snelheid;
 }

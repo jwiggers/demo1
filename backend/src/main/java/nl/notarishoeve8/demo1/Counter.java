@@ -4,11 +4,11 @@ public class Counter {
 	private Integer counter = 0;
 
 	public Integer up() {
-		return ++counter;
+		return counter>20?20:++counter;
 	}
 
 	public Integer down() {
-		return --counter;
+		return counter<-20?-20:--counter;
 	}
 
 	public Integer decay() {

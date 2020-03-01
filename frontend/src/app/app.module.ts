@@ -11,12 +11,15 @@ import * as FusionCharts from 'fusioncharts';
 import * as Charts from 'fusioncharts/fusioncharts.charts';
 import * as Widgets from 'fusioncharts/fusioncharts.widgets';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-import { MatFormFieldModule, MatInputModule, MatTabsModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatTabsModule, MatSlideToggleModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StemmenComponent } from './stemmen/stemmen.component';
 import { NewsComponent } from './news/news.component';
 import { FormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
+import { MainComponent } from './main/main.component';
+import { StatusComponent } from './status/status.component';
+import { SnelheidComponent } from './snelheid/snelheid.component';
 
 FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
 
@@ -26,7 +29,10 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
     MessagesComponent,
     StemmenComponent,
     NewsComponent,
-    UserComponent
+    UserComponent,
+    MainComponent,
+    StatusComponent,
+    SnelheidComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +43,7 @@ FusionChartsModule.fcRoot(FusionCharts, Charts, Widgets, FusionTheme);
     MatInputModule, 
     MatTabsModule, 
     FormsModule,
+    MatSlideToggleModule
   ],
   providers: [
     {

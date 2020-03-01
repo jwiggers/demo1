@@ -69,13 +69,13 @@ export class StemmenComponent implements OnInit {
     this.stemmenConfigSubscription.unsubscribe();
   }
 
-  onStemmen(col: any) {
+  onStemmen(col: number) {
     console.log("onStemmen " + col);
-    this.rxStompService.publish({destination: '/app/stemmen', body: JSON.stringify(col)});
+    this.rxStompService.publish({destination: '/app/stemmen', body: col.toLocaleString()});
   }
   onStemmenConfig(type: number) {
     console.log("onStemmenConfig " + type);
-    this.rxStompService.publish({destination: '/app/chartConfig', body: JSON.stringify(type)});
+    this.rxStompService.publish({destination: '/app/chartConfig', body: type.toLocaleString()});
   }
   buildDataSource(data: []) {
     return {
