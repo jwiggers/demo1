@@ -31,7 +31,7 @@ export class StemmenComponent implements OnInit {
   ];
 
 
-  constructor(public rxStompService: RxStompService, private userService: UserService) {
+  constructor(public rxStompService: RxStompService, public userService: UserService) {
     this.chartConfig = {
       width: '90%',
       height: '100%',
