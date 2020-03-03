@@ -25,23 +25,15 @@
         writeToScreen("Connecting to server");
         client = ......
 
-        const news_callback = function(message) {
-            writeToScreen(message.body);
-        };
-
-        const connect_callback = function() {
-          writeToScreen("Connected. Subscribing to news");
           .........
         };
-        client.connect("guest", "guest", connect_callback);
+        client.connect(......);
       }
       function resetConnection()
       {
-        writeToScreen("Disconecting from server");
-        const disconnect_callback = function() {
-          writeToScreen("Disconnected");
+		.........
         };
-        client.disconnect(disconnect_callback);
+        client.disconnect(.....);
       }
       function writeToScreen(message)
       {
@@ -56,8 +48,8 @@
   </header>
   <body>
     <h2>WebSocket Test</h2>
-    <button id="connect" type="button" onclick="initConnection()">Connect</button>
-    <button id="disconnect" type="button" onclick="resetConnection()">Disconnect</button>
+    <button >Connect</button>
+    <button >Disconnect</button>
 
     <div id="output"></div>
   </body>

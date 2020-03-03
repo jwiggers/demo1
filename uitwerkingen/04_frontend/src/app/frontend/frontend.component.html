@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div id="status">
+                <div>Connection status: <span id="status-label">{{connectionStatus$|async}}</span></div>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span>Time: {{timer}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="messages">
+                <h2>Received messages</h2>
+                <input type="text" id="name" required [(ngModel)]="message2Send" #name="ngModel">
+                <button type="button" class="btn btn-success" (click)="sendMessage()">Send!</button>
+                <ol>
+                    <!-- we will use Angular binding to populate list of messages -->
+                    <li class="message" *ngFor="let message of receivedMessages">{{message}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

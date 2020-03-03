@@ -1,0 +1,7 @@
+Pas het project 03_backend aan:
+1) Configureer de message broker in WebSocketConfig
+2) bouw een output only queue elke x sec. een bericht verstuurt aan de subscriptors (Bijv. de tijd)
+3) bouw een input/output queue die berichten kan ontvangen, er een aantal (20, 30...)
+   opslaat en distribueer de lijst aan de subscriptors
+
+Dit is een springboot applicatie, de main-class is Demo1Application

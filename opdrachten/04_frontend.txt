@@ -1,0 +1,11 @@
+Pas het angular project aan zodat je:
+1) de websocket connectie opened naar de 03_backend
+2) de subscription opened naar de queue waarop regelmatig berichten verstuurt worden
+3) de ontvangen berichten toont op de pagina 
+4) de subscription opened naar de queue waarop berichten verstuurt en ontvangen kunnen worden
+5) verstuur berichten naar de tweede message queue
+6) ontvang en toon alle berichten die worden ontvangen van de tweede message queue
+7) de subscription kan opzeggen en de verbinding verbreken met de server
+
+Gebruik hiervoor de functies die al in de pagina aanwezig zijn.
+De benodigde user/password gegevens zijn guest/guest.

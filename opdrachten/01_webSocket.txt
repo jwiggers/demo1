@@ -1,0 +1,10 @@
+Pas de file 01_webSocket/WebSocket_2.html aan zodat je:
+1) de websocket connectie opened naar de aangegeven backend
+2) de subscription opened naar de queue /topic/news
+3) de berichten ontvangt die de server stuurt op die message queue
+4) alle berichten weergeeft op de pagina
+5) de subscription kan opzeggen en de verbinding verbreken met de server
+
+Gebruik hiervoor de functies die al in de pagina aanwezig zijn.
+De benodigde user/password gegevens zijn guest/guest.
+Boven in de pagina staat een url naar de documentatie van het STOMP protocol.

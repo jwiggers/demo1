@@ -1,0 +1,7 @@
+Pas de file 00_webSocket/WebSocket.html aan zodat je achter elkaar:
+1) websocket connectie opened naar de websocket echo server at wss://echo.websocket.org/
+2) een bericht verstuurt
+3) de echo van dat bericht ontvangt en toont in de pagina
+4) Sluit de websocket connection
+
+Gebruik hiervoor de functies die al in de pagina aanwezig zijn.
